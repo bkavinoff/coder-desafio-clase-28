@@ -1,7 +1,7 @@
 import { args } from "../server.js"
 
 const informationController = async(req, res) => {
-
+  const { username } = req.session
     const info = {
       puerto: args.port,
       plataforma: process.platform,
@@ -12,7 +12,7 @@ const informationController = async(req, res) => {
       capetaProyecto: process.cwd()
       }
 
-    res.render('informationTemplate.ejs', { info })
+    res.render('informationTemplate.ejs', { username, info })
 }
 
 export { informationController }

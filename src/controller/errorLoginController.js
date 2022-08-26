@@ -1,10 +1,10 @@
 const errorLoginController = async (req, res) => {
-
-    res.render("errorLoginTemplate.ejs")
+    const { username } = req.session
+    res.render("errorLoginTemplate.ejs", { username })
 }
 const errorRegisterController = async (req, res) => {
-
-    res.render("errorRegisterTemplate.ejs")
+    const { username } = req.session
+    res.render("errorRegisterTemplate.ejs", { username })
 }
 
 export { errorLoginController, errorRegisterController }

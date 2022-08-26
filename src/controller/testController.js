@@ -12,8 +12,8 @@ for (let i = 1; i <= 5; i++){
 }
 
 const productsTest = async (req, res) => {
-
-    res.render('testTemplate.ejs', { randomProductsFaker })
+    const { username } = req.session
+    res.render('testTemplate.ejs', { username, randomProductsFaker })
 }
 
 export { productsTest }

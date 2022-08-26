@@ -36,13 +36,19 @@
               </li> -->
             </ul>
 
-            <form action="/api/login" class="d-flex">
-              <button class="btn btn-outline-success m-2" type="submit">Ingresar</button>
-            </form>
-            <form action="/api/register" class="d-flex">
-              <button class="btn btn-outline-success m-2" type="submit">Registro</button>
-            </form>
-          </div>
+            <% if(!username) { %> 
+              <form action="/api/login" class="d-flex">
+                <button class="btn btn-outline-success m-2" type="submit">Ingresar</button>
+              </form>
+              <form action="/api/register" class="d-flex">
+                <button class="btn btn-outline-success m-2" type="submit">Registro</button>
+              </form>
+            <% } else { %>
+                <form action="/api/logout" class="d-flex">
+                  <button class="btn btn-outline-success m-2" type="submit">Cerrar Sesion</button>
+                </form>
+            <% } %>
+            </div>
         </div>
     </nav>
 

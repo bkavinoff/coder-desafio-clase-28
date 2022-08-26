@@ -41,7 +41,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-console.log(process.env.DB_CONNECTION)
+//console.log(process.env.DB_CONNECTION)
 //await mongoose.connect(mongodbURL.connectionString)
 await mongoose.connect(process.env.DB_CONNECTION)
 console.log("Conectado a la base Mongo")
@@ -85,7 +85,7 @@ app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl:mongodbURL.connectionString,
+      mongoUrl:process.env.DB_CONNECTION,
       mongoOptions,
     }),
     secret: "coderhouse",
@@ -107,12 +107,13 @@ app.use(passport.session());
 const loginStrategy = new LocalStrategy(
   async (username, password, done) => {
   try {
-    
+    //console.log("Entro al LoginStrategy");
     const dbuser = await userDAO.getByUsername(username)
     
     if (!dbuser || !isValidPassword(password, dbuser.password)) {
       return done(null, null);
     }
+    //console.log("Usuario Logueado:", dbuser);
     
     done(null, dbuser);
 

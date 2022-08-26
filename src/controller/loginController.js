@@ -1,11 +1,12 @@
 import { userDAO } from "../DAO/userDAO.js"
 import { hashPassword, isValidPassword } from '../utils/hashPasswords.js'
-
+import passport from 'passport';
 
 const loginController = async (req, res) => {
+    const { username } = req.session
     const invalidFields = false
     const invalidCredentials = false
-    await res.render("loginTemplate.ejs", { invalidFields, invalidCredentials })
+    await res.render("loginTemplate.ejs", { username, invalidFields, invalidCredentials })
     
 }
 
@@ -44,23 +45,20 @@ const postUserLogin = async (req, res) => {
     // //redirijo a la página de productos
     // await res.redirect("/api/products")
 
-    
-    //const userLogged = await passport.authenticate("login", { failureRedirect: "/error-login" })
-    
-
-
-
+    const userLogged = await passport.authenticate(
+        "login", 
+        { 
+            successRedirect: "/api/products/all",
+            failureRedirect: "/error-login"  
+        }
+    )
 
     //si el passport.authenticate fue exitoso, asigno la session
     req.session.username = req.body.username
-    //res.send('/api/product')
-    //res.redirect('/api/products')
-    //res.status(200).redirect('/api/products');
-
+    
     console.log('loginController -> req.session.username: ', req.session.username)
 
-    console.log('Cargo la página loginSuccessTemplate que me hace la redireccion a productos')
-    res.render("loginSuccessTemplate.ejs")
+    res.status(200).redirect('/api/products/all');
 
 } 
 

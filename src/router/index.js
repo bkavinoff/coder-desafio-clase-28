@@ -37,14 +37,17 @@ router.get('/error-register', errorRegisterController)
 //Rutas Login
 router.get('/login', loginController)
 router.get('/loginSuccess', successLoginController)
-router.post('/login', 
-    passport.authenticate(
-        "login", 
-        { 
-            successRedirect: "/api/products/all",
-            failureRedirect: "/error-login" 
-        }
-    ), 
+router.post('/login',
+    //middleware de passport
+    // passport.authenticate(
+    //     "login", 
+    //     { 
+    //         successRedirect: "/api/products/all",
+    //         failureRedirect: "/error-login" 
+    //     }
+    // ),
+    
+    //controller
     postUserLogin
 )
 
@@ -68,8 +71,8 @@ router.post('/register', postNewUser)
 
 
 //Rutas de Producto
-router.get('/products', getAllProductsController)
-router.get('/products/all', getAllProductsController)
+router.get('/products', loginMiddleware, getAllProductsController)
+router.get('/products/all', loginMiddleware, getAllProductsController)
 router.get('/products/:id', loginMiddleware, getOneProductController)
 router.post('/products', loginMiddleware, postNewProduct )
 

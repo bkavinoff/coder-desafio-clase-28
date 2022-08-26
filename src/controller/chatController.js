@@ -1,7 +1,7 @@
 
 const chatController = (req, res) => {
-
-    res.render("chatTemplate.ejs")
+    const { username } = req.session
+    res.render("chatTemplate.ejs", { username })
 }
 
 export { chatController }
